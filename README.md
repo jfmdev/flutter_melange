@@ -1,16 +1,16 @@
-# flutter_melange
+# Flutter Melange
 
-A new Flutter project.
+A proof-of-concept mobile and web application developed with [Flutter](https://flutter.dev/).
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+The application provides the following simple features:
 
-A few resources to get you started if this is your first Flutter project:
+- TODO
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## License
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Copyright 2021 © JFMDev.
+
+This library is free software; you can redistribute it and/or modify it under the terms of the Mozilla Public License v2.0. 
+You should have received a copy of the MPL 2.0 along with this library, otherwise you can obtain one at <http://mozilla.org/MPL/2.0/>.
