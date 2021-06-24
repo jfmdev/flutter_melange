@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-var appTheme = ThemeData(
+final appTheme = ThemeData(
   // Define the default brightness and colors.
   brightness: Brightness.light,
   primaryColor: Colors.lightBlue[800],

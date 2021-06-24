@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 
 import 'package:flutter_melange/routes.dart' as Routes;
+import 'package:flutter_melange/utils/geolocation.dart';
 
 class MyDrawer extends StatelessWidget {
   void pushRouteIfNeed(BuildContext context, String routeName) {
@@ -51,6 +55,19 @@ class MyDrawer extends StatelessWidget {
             leading: FaIcon(FontAwesomeIcons.calculator),
             onTap: () {
               pushRouteIfNeed(context, Routes.COUNTER);
+            },
+          ),
+          ListTile(
+            title: Text('Where am I?'),
+            leading: FaIcon(FontAwesomeIcons.mapMarked),
+            onTap: () async {
+              Position? location = await getCurrentLocation();
+              final lat = location?.latitude ?? 25.0;
+              final lon = location?.longitude ?? 25.0;
+
+              final url =
+                  'https://www.google.com/maps/search/?api=1&query=$lat,$lon';
+              await UrlLauncher.launch(url);
             },
           ),
           ListTile(
