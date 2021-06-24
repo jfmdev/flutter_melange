@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_melange/theme.dart';
 import 'package:flutter_melange/routes.dart' as Routes;
 import 'package:flutter_melange/screens/counter.dart';
 import 'package:flutter_melange/screens/home.dart';
@@ -15,9 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Melange',
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-      ),
+      theme: appTheme,
       initialRoute: Routes.HOME,
       routes: {
         Routes.HOME: (context) => HomeScreen(),

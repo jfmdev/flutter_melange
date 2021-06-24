@@ -30,7 +30,7 @@ class MyDrawer extends StatelessWidget {
           Container(
               child: DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Colors.indigo,
+                  color: Theme.of(context).accentColor,
                 ),
                 child: Container(
                   child: Text("Menu", style: TextStyle(color: Colors.white)),
@@ -54,7 +54,7 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text('Close'),
+            title: Text('Close menu'),
             leading: FaIcon(FontAwesomeIcons.times),
             onTap: () {
               // Close the drawer.
