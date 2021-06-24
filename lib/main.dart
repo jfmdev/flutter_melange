@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_melange/routes.dart' as Routes;
+import 'package:flutter_melange/screens/counter.dart';
 import 'package:flutter_melange/screens/home.dart';
 
 void main() {
@@ -16,7 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: HomeScreen(),
+      initialRoute: Routes.HOME,
+      routes: {
+        Routes.HOME: (context) => HomeScreen(),
+        Routes.COUNTER: (context) => CounterScreen(),
+      },
     );
   }
 }

@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:flutter_melange/screens/counter.dart';
-import 'package:flutter_melange/screens/home.dart';
+import 'package:flutter_melange/routes.dart' as Routes;
 
 class MyDrawer extends StatelessWidget {
+  void pushRouteIfNeed(BuildContext context, String routeName) {
+    var currentRoute = ModalRoute.of(context)?.settings.name;
+
+    if (currentRoute != routeName) {
+      Navigator.popAndPushNamed(
+        context,
+        routeName,
+      );
+    } else {
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -31,20 +43,14 @@ class MyDrawer extends StatelessWidget {
             title: Text('Home'),
             leading: FaIcon(FontAwesomeIcons.home),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomeScreen()),
-              );
+              pushRouteIfNeed(context, Routes.HOME);
             },
           ),
           ListTile(
             title: Text('Counter'),
             leading: FaIcon(FontAwesomeIcons.calculator),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CounterScreen()),
-              );
+              pushRouteIfNeed(context, Routes.COUNTER);
             },
           ),
           ListTile(
