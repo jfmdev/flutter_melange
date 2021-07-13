@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 import 'package:flutter_melange/widgets/drawer.dart';
 
 class CounterScreen extends StatefulWidget {
-  CounterScreen({Key? key}) : super(key: key);
+  CounterScreen({Key? key, required this.analytics}) : super(key: key);
+
+  final FirebaseAnalytics analytics;
 
   @override
   _CounterScreenState createState() => _CounterScreenState();
@@ -18,6 +21,13 @@ class _CounterScreenState extends State<CounterScreen> {
     setState(() {
       _counter++;
     });
+
+    widget.analytics.logEvent(
+      name: 'tap_counter',
+      parameters: <String, dynamic>{
+        'count': _counter
+      },
+    );
   }
 
   @override

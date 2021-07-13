@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 
 import 'package:flutter_melange/theme.dart';
 import 'package:flutter_melange/routes.dart' as Routes;
@@ -11,17 +14,26 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Melange',
-      theme: appTheme,
-      initialRoute: Routes.HOME,
-      routes: {
-        Routes.HOME: (context) => HomeScreen(),
-        Routes.COUNTER: (context) => CounterScreen(),
-      },
-    );
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        FirebaseAnalytics analytics = FirebaseAnalytics();
+
+        return MaterialApp(
+          title: 'Flutter Melange',
+          theme: appTheme,
+          initialRoute: Routes.HOME,
+          routes: {
+            Routes.HOME: (context) => HomeScreen(),
+            Routes.COUNTER: (context) => CounterScreen(analytics: analytics),
+          },
+          navigatorObservers: [FirebaseAnalyticsObserver(analytics: analytics)],
+        );
+      });
   }
 }
