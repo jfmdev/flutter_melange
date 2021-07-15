@@ -3,15 +3,22 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_melange/screens/settings.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:flutter_melange/theme.dart';
 import 'package:flutter_melange/routes.dart' as Routes;
 import 'package:flutter_melange/bloc/counter.dart';
+import 'package:flutter_melange/bloc/theme.dart';
 import 'package:flutter_melange/screens/counter.dart';
 import 'package:flutter_melange/screens/home.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getTemporaryDirectory(),
+  );
   runApp(MyApp());
 }
 
@@ -26,20 +33,32 @@ class MyApp extends StatelessWidget {
         builder: (context, snapshot) {
           FirebaseAnalytics analytics = FirebaseAnalytics();
 
-          return MaterialApp(
-            title: 'Flutter Melange',
-            theme: appTheme,
-            initialRoute: Routes.HOME,
-            routes: {
-              Routes.HOME: (context) => HomeScreen(),
-              Routes.COUNTER: (context) => BlocProvider(
-                    create: (BuildContext context) => CounterCubit(),
-                    child: CounterScreen(analytics: analytics),
-                  ),
-            },
-            navigatorObservers: [
-              FirebaseAnalyticsObserver(analytics: analytics)
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider<ThemeCubit>(
+                create: (BuildContext context) => ThemeCubit(),
+              ),
+              BlocProvider<CounterCubit>(
+                create: (BuildContext context) => CounterCubit(),
+              ),
             ],
+            child: BlocBuilder<ThemeCubit, bool>(
+              builder: (context, isDark) => MaterialApp(
+                title: 'Flutter Melange',
+                theme: isDark ? darkTheme : lightTheme,
+                initialRoute: Routes.HOME,
+                routes: {
+                  Routes.HOME: (context) => HomeScreen(),
+                  Routes.COUNTER: (context) =>
+                      CounterScreen(analytics: analytics),
+                  Routes.SETTINGS: (context) =>
+                      SettingsScreen(analytics: analytics),
+                },
+                navigatorObservers: [
+                  FirebaseAnalyticsObserver(analytics: analytics)
+                ],
+              ),
+            ),
           );
         });
   }
