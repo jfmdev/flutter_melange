@@ -4,9 +4,13 @@ A proof-of-concept mobile and web application developed with [Flutter](https://f
 
 ## Features
 
-The application provides the following simple features:
+The application provides five simple features:
 
-- TODO
+- A screen with a counter (that only goes up).
+- A screen that fetch jokes (from a public API).
+- A screen for switch between light and dark themes.
+- A button to open Google Maps with the device's current GPS location.
+- A drawer for navigate though the different screens.
 
 ## License
 
