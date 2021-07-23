@@ -71,6 +71,13 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            title: Text('Tell me a joke'),
+            leading: FaIcon(FontAwesomeIcons.crown),
+            onTap: () {
+              pushRouteIfNeed(context, Routes.JOKES);
+            },
+          ),
+          ListTile(
             title: Text('Settings'),
             leading: FaIcon(FontAwesomeIcons.cog),
             onTap: () {
